@@ -1,0 +1,18 @@
+.createUserForm {
+  position: relative;
+  width: 70vw;
+  margin: 15vh auto 0 3.5rem;
+  border-radius: 25px 0 0 25px;
+  padding: 3% 5% 3% 8%;
+}
+
+.createUserForm::after {
+  content: "";
+  background-color: #0b5dd7;
+  position: absolute;
+  width: 20px;
+  height: 100%;
+  top: 0;
+  left: 0;
+  border-radius: 20px 0 0 20px;
+}
