@@ -13,7 +13,7 @@ function App() {
 
   React.useLayoutEffect(() => {
     jwt && dispatch(refreshUser(jwt));
-    setInterval(() => dispatch(refreshUser(jwt)), 9500 * 1000);
+    setInterval(() => dispatch(refreshUser(jwt)), 900 * 1000);
   }, [dispatch]);
 
   if (user.status === "pending")

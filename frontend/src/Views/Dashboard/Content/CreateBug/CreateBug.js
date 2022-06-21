@@ -2,6 +2,7 @@ import React from "react";
 import "./CreateBug.css";
 import { useDispatch, useSelector } from "react-redux";
 import { postBug } from "../../../../redux/slices/bugSlice";
+import SubmitToast from "../../../../Components/Toast/submitToast/SubmitToast";
 
 function CreateBug() {
   const [input, setInput] = React.useState({
@@ -174,7 +175,12 @@ function CreateBug() {
       </table>
       <hr />
       <div className="col-8 mt-4 ms-auto d-flex ">
-        <button className="btn btn-primary" type="submit" onClick={submitBug}>
+        <SubmitToast />
+        <button
+          className="btn btn-primary ms-3"
+          type="submit"
+          onClick={submitBug}
+        >
           Submit
         </button>
         <button type="reset" onClick={reset} className="btn mx-4 btn-danger">

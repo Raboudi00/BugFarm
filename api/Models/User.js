@@ -8,15 +8,19 @@ const bcryptRound = 12;
 const jwt_secret = process.env.JWT_SECERT;
 
 const user = mongoose.Schema({
-  name: { type: String, required: true, unique: true },
-  lastName: { type: String, required: true },
+  name: {
+    type: String,
+    unique: [true, "This username is already taken"],
+    required: [true, "provide a user name"],
+  },
+  lastName: { type: String, required: [true, "provide a last name"] },
   email: {
     type: String,
-    required: true,
-    unique: true,
+    required: [true, "provide an email"],
+    unique: [true, "A user with this email is already created"],
     validate: {
       validator: (email) => email.match(emailRegex),
-      message: "You must provide a valid email.",
+      message: "You must provide a valid email Ex: xxxx@mail.xx",
     },
   },
   isAdmin: {
@@ -25,7 +29,7 @@ const user = mongoose.Schema({
   },
   password: {
     type: String,
-    required: true,
+    required: [true, "provide a password"],
     set: (password) => bcrypt.hashSync(password, bcryptRound),
   },
 });

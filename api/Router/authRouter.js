@@ -16,11 +16,12 @@ Router.post("/login", async (req, res) => {
   return res.status(403).send("check pass");
 });
 
-Router.post("/register", isAuth, (req, res) => {
-  User(req.body)
+Router.post("/register", isAuth, async (req, res) => {
+  const user = new User({ ...req.body });
+  await user
     .save()
     .then((res) => res.status(201))
-    .catch((err) => res.status(500).send(err));
+    .catch((err) => res.json(err));
 });
 
 Router.get("/", isAuth, (req, res) => {

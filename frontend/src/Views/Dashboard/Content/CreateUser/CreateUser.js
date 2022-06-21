@@ -12,6 +12,8 @@ function CreateUser() {
     isAdmin: false,
   });
 
+  const [errorList, setErrorList] = React.useState("");
+
   const state = useSelector((state) => state.user);
 
   const changeListner = (e) => {
@@ -36,9 +38,15 @@ function CreateUser() {
   const submitUser = async (e) => {
     e.preventDefault();
     await dispatch(register(input))
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
+      .then((res) => console.log(res, "suc"))
+      .catch((err) => console.log(err, "fail"));
   };
+
+  React.useEffect(() => {
+    setErrorList(state.error ? Object.values(state.error) : false);
+  }, []);
+
+  console.log(errorList);
 
   state.status === "pending" && <h1>Loading</h1>;
 
@@ -48,7 +56,9 @@ function CreateUser() {
       <div className="d-flex gap-1">
         <div className="input-group mb-3 col-4 w-50">
           <span
-            className={`input-group-text ${state.error.name && "text-danger"}`}
+            className={`input-group-text ${
+              state?.error?.name && !input.name ? "text-danger" : null
+            }`}
             id="basic-addon1"
           >
             <i className="fa-solid fa-user"></i>
@@ -66,7 +76,7 @@ function CreateUser() {
         <div className="input-group mb-3 col-4 w-50">
           <span
             className={`input-group-text ${
-              state.error.lastName && "text-danger"
+              state?.error?.lastName && !input.lastName ? "text-danger" : null
             }`}
             id="basic-addon1"
           >
@@ -84,7 +94,9 @@ function CreateUser() {
       </div>
       <div className="input-group mb-3 col-9">
         <span
-          className={`input-group-text ${state.error.email && "text-danger"}`}
+          className={`input-group-text ${
+            state?.error?.email && !input.email ? "text-danger" : null
+          }`}
           id="basic-addon1"
         >
           <i className="fa-solid fa-envelope"></i>
@@ -100,7 +112,9 @@ function CreateUser() {
       </div>
       <div className="input-group mb-3 col-9">
         <span
-          className={`input-group-text ${!input.password && "text-danger"}`}
+          className={`input-group-text ${
+            state?.error?.password && !input.password && "text-danger"
+          }`}
           id="basic-addon1"
         >
           <i className="fa-solid fa-unlock-keyhole"></i>
@@ -130,7 +144,7 @@ function CreateUser() {
         </select>
       </div>
       <hr />
-      <div className="col-2 mt-4 text-center d-flex">
+      <div className="col-2 mt-4 text-center d-flex mb-4">
         <button className="btn btn-primary" type="submit" onClick={submitUser}>
           Submit
         </button>
@@ -138,6 +152,12 @@ function CreateUser() {
           Reset
         </button>
       </div>
+      {errorList &&
+        errorList.map((error, index) => (
+          <p className="text-danger" key={error.path || index}>
+            * {error.message}
+          </p>
+        ))}
     </form>
   );
 }

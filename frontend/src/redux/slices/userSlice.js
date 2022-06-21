@@ -2,11 +2,19 @@ import { createSlice } from "@reduxjs/toolkit";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-export const register = createAsyncThunk("user/getUsers", async (req, res) => {
+export const register = createAsyncThunk("user/register", async (req, res) => {
   const response = await axios.post(
     "http://192.168.1.16:4000/api/user/register",
     req
   );
+  if (!req.password)
+    return {
+      ...response.data,
+      errors: {
+        ...response.data.errors,
+        password: { message: "choose password" },
+      },
+    };
   return response.data;
 });
 
@@ -67,11 +75,13 @@ const slice = createSlice({
       })
       .addCase(register.fulfilled, (state, action) => {
         state.status = "success";
+        //console.log(action);
         state.error = action.payload.errors;
       })
       .addCase(register.rejected, (state, action) => {
         state.status = "rejected";
-        state.error = action.error.message;
+        console.log(action);
+        //state.error = [...action.payload.error];
       })
       .addCase(signIn.pending, (state) => {
         state.status = "pending";

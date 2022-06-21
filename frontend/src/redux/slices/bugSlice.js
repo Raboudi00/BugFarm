@@ -48,23 +48,6 @@ const slice = createSlice({
   initialState,
   reducers: {
     getBugs: (state) => {},
-    createBugs: (state, action) => {},
-    updateBugs: (state, action) => {},
-    isCompleted: (state) => {},
-    // isCompleted: (state, action) => {
-    //   const newState = state.bugs.map((bug) => {
-    //     if (bug.id === action.payload) {
-    //       let completed = bug.completed;
-    //       return {
-    //         ...bug,
-    //         completed: !completed,
-    //       };
-    //     }
-    //     return { ...bug };
-    //   });
-    //   state.bugs = [...newState];
-    //   console.log(newState);
-    // },
   },
   extraReducers: (builder) => {
     builder
@@ -81,20 +64,22 @@ const slice = createSlice({
         state.status = "failed";
         state.error = action.error.message;
       })
+
       //Posting Bug
       .addCase(postBug.fulfilled, (state, action) => {
-        state.status = "success";
+        state.status = "idle";
         state.bugs = [...state.bugs, action.payload];
         //window.location.href = "/";
-        //<Navigate to="/view" replace={true} />;
+        //<Navigate to="/" replace={true} />;
       })
       .addCase(postBug.pending, (state, action) => {
         state.status = "loading";
       })
       .addCase(postBug.rejected, (state, action) => {
-        state.status = "rejected";
+        state.status = "idle";
         state.error = [...action.error.message];
       })
+
       //Update Bug
       .addCase(updateBug.fulfilled, (state, action) => {
         state.status = "idle";
