@@ -1,6 +1,6 @@
 # **Bug Tracker Web Application**
 
-![Gclub](https://github.com/Raboudi00/BugFarm/assets/78605723/caaf1698-05b5-48f9-8705-ee588b677155)
+![bugtrack](https://github.com/Raboudi00/G_club/assets/78605723/c7717b47-4f9b-47be-89e8-b509a51b372b)
 
 #### This repository contains a bug tracker web application that allows administrators and employees to assign and track the progress of software bugs found in the system. The application aims to improve performance and productivity in the development department.
 ## Features
