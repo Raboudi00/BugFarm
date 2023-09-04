@@ -37,4 +37,4 @@
     Push your changes to the branch: git push origin feature/your-feature
     Submit a pull request
 
-This project is created by Oussama Raboudi: raboudi_oussama@outlook.com
+For any inquiries or suggestions, please feel free to contact me at raboudi_oussama@outlook.com
